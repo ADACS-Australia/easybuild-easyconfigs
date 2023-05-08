@@ -1,0 +1,79 @@
+easyblock = 'SCons'
+name = 'esys-escript'
+version = '5.10'
+
+homepage = 'https://esys-escript.github.io/'
+description = """esys-escript is a programming tool for implementing mathematical models in python using the finite element method (FEM)"""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+toolchainopts = {'usempi': True, 'pic': True, 'openmp': True}
+
+source_urls = ['https://github.com/esys-escript/esys-escript.github.io/archive/refs/tags/']
+sources = ['%(version)s.tar.gz']
+patches = ['SparseMatrix.patch', 'silent-check-rsh-ssh.patch']
+checksums = [
+    {'5.10.tar.gz': '72696e8f077c22ef4471242cdf2067e21397ca997ff29b171feb7e1f9a63ba60'},
+    {'SparseMatrix.patch': 'c72de3d6c6dfd46a6261147f657ed51a0e180addbbf63c07cbba5f641388b1ee'},
+    {'silent-check-rsh-ssh.patch': '1c73881db63f3b9e45cea8dd535f5874fb55f5f669d1be0c7b5a8230ea1a238e'},
+]
+
+parallel = False
+prefix_arg = 'prefix='
+
+builddependencies = [
+    ('SCons', '4.4.0'),
+]
+
+dependencies = [
+    ('Python', '3.10.4'),
+    ('netCDF', '4.9.0'),
+    ('netCDF-C++4', '4.3.1'),
+    ('Boost', '1.79.0'),
+    ('Boost.Python', '1.79.0'),
+    ('SciPy-bundle', '2022.05'), # <-- Includes numpy
+    ('matplotlib', '3.5.2'),
+    ('pyproj', '3.4.0'),
+    ('gmsh', '4.11.1',)
+]
+
+_pylibver = '310' # <--- Need to change this manually for newer python versions
+_options = ("escript_opts_version = 203; "
+            "verbose = True; "
+            "openmp = True; "
+            "omp_flags = '-fopenmp'; "
+            "omp_ldflags = '-fopenmp'; "
+            "werror = False; "
+            "boost_prefix = '$EBROOTBOOSTPYTHON'; "
+            f"boost_libs = 'boost_python{_pylibver}'; "
+            "pythoncmd = '$EBROOTPYTHON/bin/python'; "
+            "pythonlibname = 'python%(pyshortver)s'; "
+            "pythonlibpath = '$EBROOTPYTHON/lib'; "
+            "pythonincpath = ['$EBROOTPYTHON/include/python%(pyshortver)s', '$EBROOTSCIPYMINBUNDLE/lib/python%(pyshortver)s/site-packages/numpy/core/include']; "
+            "cxx_extra = '-I$EBROOTNETCDF/include'; "
+            "ld_extra = '-L$EBROOTNETCDF/lib'; "
+            "umfpack = True; "
+            "umfpack_prefix = '$EBROOTSUITESPARSE'; "
+            "netcdf = 4; "
+            "netcdf_prefix = '$EBROOTNETCDFMINCPLUSPLUS4'; "
+            "netcdf_libs = ['netcdf_c++4', 'netcdf']; "
+            "mpi = 'OPENMPI'; "
+            "mpi_prefix = '$EBROOTOPENMPI'; "
+            "parmetis = True; "
+            "parmetis_prefix = '$EBROOTPARMETIS'; "
+            "prelaunch = 'EE=\$(echo -x %e | sed -e \\\"s/,/ -x /g\\\")'; "
+            "mpi_no_host = True; ")
+
+_optionsfile = '%(builddir)s/custom-options.py'
+prebuildopts = f'echo "{_options}" > {_optionsfile} && '
+buildopts = f"build_full options_file={_optionsfile}"
+installopts = f"options_file={_optionsfile}"
+
+sanity_check_commands = [('run-escript', '-V')]
+
+sanity_check_paths = {
+    'files': ['bin/run-escript'],
+    'dirs': ['bin', 'esys', 'include', 'lib'],
+}
+
+
+moduleclass = 'tools'

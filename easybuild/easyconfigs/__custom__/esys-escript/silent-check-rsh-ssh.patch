@@ -1,0 +1,13 @@
+diff --git a/run-escript.in b/run-escript.in
+index 212c03b6d..51a0e4687 100644
+--- a/run-escript.in
++++ b/run-escript.in
+@@ -469,7 +469,7 @@ fi
+ 
+ if [ "$MPI_FLAVOUR" = "OPENMPI" ]
+ then
+-    if [ -z `which rsh``which ssh` ]
++    if [ -z `which rsh 2> /dev/null``which ssh 2> /dev/null` ]
+     then
+         AGENTOVERRIDE="--gmca plm_rsh_agent /bin/false"
+     fi
