@@ -44,5 +44,6 @@ forward_deps = False
 build_tests = False
 configopts = '-DTrilinos_ENABLE_EXPLICIT_INSTANTIATION=ON '
 configopts += '-DKokkos_ENABLE_AGGRESSIVE_VECTORIZATION=ON '
+configopts += '-DTrilinos_ENABLE_INSTALL_CMAKE_CONFIG_FILES=ON '
 
 moduleclass = 'numlib'
