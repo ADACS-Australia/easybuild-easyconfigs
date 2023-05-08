@@ -1,0 +1,47 @@
+easyblock = 'Tarball'
+
+# IMPORTANT!!
+# Needs to be installed with --umask=007
+
+name = 'Gaussian'
+version = '16.B.01'
+
+homepage = 'https://www.gaussian.com/'
+description = """Gaussian provides state-of-the-art capabilities for electronic structure modeling."""
+
+toolchain = SYSTEM
+
+sources = [{'filename': 'E6B-132N.tbJ', 'extract_cmd': "tar xfvJ %s",}]
+checksums = ['c3326ac9167357d47e0affc09f9b84c05d0581127d179e47ebd781c510ef9995']
+
+start_dir = '..'
+
+postinstallcmds = [
+    'mkdir %(installdir)s/bin',
+    'ln -s ../g%(version_major)s/g%(version_major)s ../g%(version_major)s/ghelp %(installdir)s/bin',
+    'chmod -R o-rwx %(installdir)s/g%(version_major)s',
+]
+
+sanity_check_paths = {
+    'files': ['g%(version_major)s/g%(version_major)s', 'g%(version_major)s/l9999.exe'],
+    'dirs': ['g%%(version_major)s/%s' % x for x in ['bsd', 'tests', 'basis', 'doc']],
+}
+
+modextravars = {
+    'g%(version_major)sroot': '%(installdir)s',
+    'G%(version_major)sBASIS': '%(installdir)s/g%(version_major)s/basis',
+    'GAUSS_BSDDIR': '%(installdir)s/g%(version_major)s/bsd',
+    '_DSM_BARRIER': 'SHM',
+    'PGI_TERM': 'trace,abort',
+}
+
+modextrapaths = {
+    'GAUSS_EXEDIR': ['g%(version_major)s', 'g%(version_major)s/bsd'],
+    'PATH': ['g%(version_major)s/bsd', 'g%(version_major)s'],
+    'LD_LIBRARY_PATH': 'g%(version_major)s',
+}
+
+# This might be useful at some sites.
+# modaliases = {'g_searchlog': '%(installdir)s/g%(version_major)s/tests/searchlog.csh'}
+
+moduleclass = 'chem'
