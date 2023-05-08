@@ -1,0 +1,43 @@
+--- mpirun.fl.orig	2023-04-12 15:35:50
++++ mpirun.fl		2023-04-12 15:35:50
+@@ -47,8 +47,40 @@
+ #
+ 
+ #------------------------------------------------------------------------------
++sut_run ()
++{
++    # Default gcc + openmpi to load
++    _gcc_ver=${_gcc_ver:-"12.2.0"}
++    _openmpi_ver=${_openmpi_ver:-"4.1.5"}
++
++    . /etc/profile.d/z00_lmod.sh
++    . /etc/profile.d/z01-local.sh
++    module load gcc/$_gcc_ver openmpi/$_openmpi_ver
++
++    echo "***"
++    echo "*** Using locally installed OpenMPI library: $EBROOTOPENMPI"
++    echo "***"
++
++    if [[ $FS_MPIRUN_FLAGS != *"--map-by"* ]] ; then
++        FS_MPIRUN_FLAGS="$FS_MPIRUN_FLAGS --map-by numa"
++    fi
++
++    my_cmdline="$EBROOTOPENMPI/bin/mpirun $FS_MPIRUN_FLAGS $FS_CMD"
++
++    # start job
++    echo Starting $my_cmdline
++    $my_cmdline < /dev/null
++    retval=$?
++    return $retval
++}
++
+ openmpi_run ()
+ {
++    if [ "$USE_SUT_MPI" == "yes" ]; then
++        sut_run
++        retval=$?
++        return $retval
++    fi
+     # note(s):
+     #  - add MPI lib directory to shared lib path so mpirun can pick up
+     #    libraries.  This is needed for mpirun; the application can get 
