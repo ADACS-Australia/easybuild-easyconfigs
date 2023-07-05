@@ -1,0 +1,17 @@
+easyblock = 'Bundle'
+
+name = 'pandas'
+version = '1.2.4'
+versionsuffix = '-scipy-bundle-2021.05'
+
+homepage = "https://pypi.python.org/pypi/pandas/"
+description = """pandas is an open source, BSD-licensed library providing high-performance, easy-to-use data structures
+ and data analysis tools for the Python programming language."""
+
+toolchain = {'name': 'foss', 'version': '2021a'}
+
+dependencies = [
+    ('SciPy-bundle', '2021.05'),
+]
+
+moduleclass = 'lib'
