@@ -38,6 +38,7 @@ modextravars = {
     'USE_SUT_MPI': 'yes',
     '_gcc_ver': '12.2.0',
     '_openmpi_ver': '4.1.5',
+    'I_MPI_FABRICS': 'shm:ofa',
 }
 
 moduleclass = 'tools'
