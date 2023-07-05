@@ -67,7 +67,7 @@ dependencies = [
     ('SciPy-bundle', '2021.10'),
     ('networkx', '2.6.3'),
     ('CUDA', '12.0.0', '', SYSTEM),
-    ('UCX-CUDA', '1.11.2', versionsuffix),
+    ('UCX-CUDA', '1.13.1', versionsuffix),
 ]
 
 exts_defaultclass = 'PythonPackage'
