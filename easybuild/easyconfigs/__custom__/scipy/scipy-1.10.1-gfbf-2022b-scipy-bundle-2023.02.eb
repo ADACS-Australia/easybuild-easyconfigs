@@ -8,7 +8,7 @@ homepage = 'http://www.scipy.org'
 description = """SciPy is a collection of mathematical algorithms and convenience
  functions built on the Numpy extension for Python."""
 
-toolchain = {'name': 'foss', 'version': '2022b'}
+toolchain = {'name': 'gfbf', 'version': '2022b'}
 
 dependencies = [
     ('SciPy-bundle', '2023.02'),

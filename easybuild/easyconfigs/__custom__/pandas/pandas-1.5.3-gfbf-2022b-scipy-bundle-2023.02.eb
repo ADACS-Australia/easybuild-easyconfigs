@@ -8,7 +8,7 @@ homepage = "https://pypi.python.org/pypi/pandas/"
 description = """pandas is an open source, BSD-licensed library providing high-performance, easy-to-use data structures
  and data analysis tools for the Python programming language."""
 
-toolchain = {'name': 'foss', 'version': '2022b'}
+toolchain = {'name': 'gfbf', 'version': '2022b'}
 
 dependencies = [
     ('SciPy-bundle', '2023.02'),
