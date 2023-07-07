@@ -17,7 +17,7 @@ builddependencies = [('binutils', '2.38')]
 
 dependencies = [
     ('CUDA', '11.7.0', '', SYSTEM),
-    ('UCX-CUDA', '1.12.1', versionsuffix),
+    ('UCX-CUDA', '1.13.1', versionsuffix),
 ]
 
 moduleclass = 'lib'
