@@ -1,0 +1,37 @@
+easyblock = 'ConfigureMake'
+
+name = 'Voro++'
+version = '2017-01-10'
+
+homepage = 'http://math.lbl.gov/voro++/'
+description = """Voro++ is a software library for carrying out three-dimensional computations of the Voronoi
+tessellation. A distinguishing feature of the Voro++ library is that it carries out cell-based calculations,
+computing the Voronoi cell for each particle individually. It is particularly well-suited for applications that
+rely on cell-based statistics, where features of Voronoi cells (eg. volume, centroid, number of faces) can be used
+to analyze a system of particles."""
+
+toolchain = {'name': 'GCCcore', 'version': '12.2.0'}
+toolchainopts = {'pic': True}
+
+source_urls = ['https://github.com/ADACS-Australia/voro/archive/refs/tags/']
+sources = ['%(version)s.tar.gz']
+checksums = ['42254667ff8c9e602c47654b2704fab5c97246d8fedc1db010cea74b2ce1e941']
+
+builddependencies = [('binutils', '2.39')]
+
+
+# No configure
+skipsteps = ['configure']
+
+# Override CXX and CFLAGS variables from Makefile
+buildopts = 'CXX="$CXX" CFLAGS="$CXXFLAGS"'
+
+# Override PREFIX variable from Makefile
+installopts = "PREFIX=%(installdir)s"
+
+sanity_check_paths = {
+    'files': ['bin/voro++', 'lib/libvoro++.a', 'include/voro++/voro++.hh'],
+    'dirs': [],
+}
+
+moduleclass = 'math'
