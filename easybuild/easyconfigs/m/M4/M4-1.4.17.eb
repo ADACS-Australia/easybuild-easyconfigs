@@ -16,10 +16,14 @@ toolchain = SYSTEM
 
 source_urls = [GNU_SOURCE]
 sources = [SOURCELOWER_TAR_GZ]
-patches = ['M4-%(version)s_glibc_2.28.patch']
+patches = [
+    'M4-%(version)s_glibc_2.28.patch',
+    'M4-1.4.18_glibc_2.34.patch',
+]
 checksums = [
-    '3ce725133ee552b8b4baca7837fb772940b25e81b2a9dc92537aeaf733538c9e',  # m4-1.4.17.tar.gz
-    'd7ae5c4d1bc636456db5f12c54f8f136512605cd92772a2fc3bc8a8b3cf92cca',  # M4-1.4.17_glibc_2.28.patch
+    {'m4-1.4.17.tar.gz': '3ce725133ee552b8b4baca7837fb772940b25e81b2a9dc92537aeaf733538c9e'},
+    {'M4-1.4.17_glibc_2.28.patch': 'd7ae5c4d1bc636456db5f12c54f8f136512605cd92772a2fc3bc8a8b3cf92cca'},
+    {'M4-1.4.18_glibc_2.34.patch': '75f0ccc981bf313f5eb4e203a9f8b1ef9e633d840064587405cf360107d4915a'},
 ]
 
 # '-fgnu89-inline' is required to avoid linking errors with older glibc's,
