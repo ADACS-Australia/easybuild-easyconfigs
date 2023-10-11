@@ -33,7 +33,9 @@ dependencies = [
     ('SciPy-bundle', '2022.05'), # <-- Includes numpy
     ('matplotlib', '3.5.2'),
     ('pyproj', '3.4.0'),
-    ('gmsh', '4.11.1',)
+    ('gmsh', '4.11.1'),
+    ('GDAL', '3.5.0'),
+    ('sympy', '1.11.1'),
 ]
 
 _pylibver = '310' # <--- Need to change this manually for newer python versions
