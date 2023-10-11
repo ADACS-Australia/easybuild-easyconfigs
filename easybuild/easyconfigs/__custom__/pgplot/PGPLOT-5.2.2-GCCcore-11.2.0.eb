@@ -13,7 +13,7 @@ for making graphical images of publication quality with minimum effort on the pa
 the user. For most applications, the program can be device-independent, and the output
 can be directed to the appropriate device at run time."""
 
-toolchain = {'name': 'GCCcore', 'version': '12.2.0'}
+toolchain = {'name': 'GCCcore', 'version': '11.2.0'}
 
 source_urls = ['ftp://ftp.astro.caltech.edu/pub/pgplot/']
 sources = ['%%(namelower)s%s.tar.gz' % version.replace('.', '')]
@@ -26,13 +26,13 @@ checksums = [
 ]
 
 builddependencies = [
-    ('binutils', '2.39'),
+    ('binutils', '2.37'),
 ]
 
 dependencies = [
-    ('libpng', '1.6.38'),
-    ('zlib', '1.2.12'),
-    ('X11', '20221110'),
+    ('libpng', '1.6.37'),
+    ('zlib', '1.2.11'),
+    ('X11', '20210802'),
 ]
 
 cmds_map = [('.*', './makemake . linux g77_gcc && make && make shared && make cpg && make cpg-shared')]
