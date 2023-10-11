@@ -1,0 +1,35 @@
+easyblock = 'CMakeMake'
+
+name = 'MultiNest'
+version = '3.10'
+
+homepage = 'https://github.com/JohannesBuchner/MultiNest'
+description = """MultiNest is a Bayesian inference tool which calculates the evidence and explores the parameter space
+ which may contain multiple posterior modes and pronounced (curving) degeneracies in moderately high dimensions."""
+
+toolchain = {'name': 'gompi', 'version': '2022b'}
+
+
+source_urls = ['https://github.com/JohannesBuchner/MultiNest/archive/refs/tags/']
+sources = ['v%(version)s.tar.gz']
+checksums = ['8900588ddb4ece8ec09bb1cc4df80e3f02157b278176635d9ef9cdc1992559ce']
+
+builddependencies = [
+    ('CMake', '3.24.3'),
+    ('imkl', '2023.0.0', '', True),
+]
+
+preconfigopts = 'export FFLAGS="-O2 -ftree-vectorize -march=native -fno-math-errno -fallow-argument-mismatch" && '
+
+parallel = 1
+
+sanity_check_paths = {
+    'files': ['bin/%s' % x for x in ['ackley', 'eggboxC', 'eggboxC++', 'gaussian', 'gauss_shell', 'himmelblau',
+                                     'obj_detect', 'rosenbrock']] +
+             ['lib/lib%s' % x for x in ['multinest.a', 'multinest_mpi.a', 'multinest_mpi.%s' % SHLIB_EXT,
+                                        'multinest.%s' % SHLIB_EXT]] +
+             ['include/multinest.h'],
+    'dirs': ['modules'],
+}
+
+moduleclass = 'tools'
