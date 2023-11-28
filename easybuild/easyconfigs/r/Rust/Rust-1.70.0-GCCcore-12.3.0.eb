@@ -28,4 +28,6 @@ dependencies = [
     ('OpenSSL', '1.1', '', SYSTEM),
 ]
 
+configopts = "--set llvm.download-ci-llvm=false"
+
 moduleclass = 'lang'
