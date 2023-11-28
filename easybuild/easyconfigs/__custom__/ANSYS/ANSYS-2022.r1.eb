@@ -31,7 +31,7 @@ postinstallcmds = [
 
 osdependencies = ['libnsl']
 
-license_server = 'ls9.ds.swin.edu.au'
+license_server = 'ls-ansys.ds.swin.edu.au'
 license_server_port = '2325:1055'
 
 modextravars = {
