@@ -1,0 +1,47 @@
+easyblock = 'Toolchain'
+hidden = True
+
+name = 'python-scientific'
+version = '%(pyver)s'
+local_tc_year = '2023a'
+versionsuffix = '-foss-%(local_tc_year)s'
+
+homepage = 'https://python.org/'
+description = """A collection of modules and Python packages for scientific computing.
+ Includes:
+ - GCC, OpenMPI, OpenBLAS (BLAS and LAPACK support), FFTW, FFTW.MPI, ScaLAPACK, HDF5
+ - Python, IPython, h5py, mpi4py, scipy, matplotlib, astropy, pandas, and more."""
+
+toolchain = SYSTEM
+
+# toolchain used to build foss dependencies
+_gompi = ('gompi', local_tc_year)
+_foss = ('foss', local_tc_year)
+_gfbf = ('gfbf', local_tc_year)
+_gccver = '12.3.0'
+_gcc = ('GCC', _gccver)
+_gcccore = ('GCCcore', _gccver)
+
+# we need GCC and OpenMPI as explicit dependencies instead of gompi toolchain
+# because of toolchain preparation functions
+dependencies = [
+    _gcc,
+    ('OpenMPI', '4.1.5', '', _gcc),
+    ('FlexiBLAS', '3.3.1', '', _gcc),
+    ('FFTW', '3.3.10', '', _gcc),
+    ('FFTW.MPI', '3.3.10', '', _gompi),
+    ('ScaLAPACK', '2.2.0', '-fb', _gompi),
+    ('HDF5','1.14.0', '', _gompi),
+    ('Python', '3.11.3', '', _gcccore),
+    ('IPython', '8.14.0', '', _gcccore),
+    ('h5py', '3.9.0', '' , _foss),
+    ('SciPy-bundle', '2023.07', '', _gfbf),
+    ('matplotlib', '3.7.2', '', _gfbf),
+    ('astropy', '5.3.3', '', _gfbf),
+    ('scipy', '1.11.1', '-scipy-bundle-2023.07', _gfbf),
+    ('numpy', '1.25.1', '-scipy-bundle-2023.07', _gfbf),
+    ('mpi4py', '3.1.4', '', _gompi),
+    ('pandas', '2.0.3', '-scipy-bundle-2023.07', _gfbf),
+]
+
+moduleclass = 'toolchain'

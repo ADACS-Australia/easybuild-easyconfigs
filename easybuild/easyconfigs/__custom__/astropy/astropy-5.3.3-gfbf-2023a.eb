@@ -1,0 +1,41 @@
+easyblock = "PythonBundle"
+
+name = 'astropy'
+version = '5.3.3'
+
+homepage = 'https://www.astropy.org/'
+description = """The Astropy Project is a community effort to develop a common 
+core package for Astronomy in Python and foster an ecosystem of interoperable 
+astronomy packages.
+
+The Astropy community is committed to supporting diversity and inclusion."""
+
+toolchain = {'name': 'gfbf', 'version': '2023a'}
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
+    ('SciPy-bundle', '2023.07'),
+    ('PyYAML', '6.0'),
+]
+
+use_pip = True
+sanity_pip_check = True
+
+exts_list = [
+    ('setuptools-scm', '8.0.4', {
+        'checksums': ['b5f43ff6800669595193fd09891564ee9d1d7dcb196cab4b2506d53a2e1c95c7'],
+    }),
+    ('pyerfa', '2.0.1.1', {
+        'modulename': 'erfa',
+        'checksums': ['dbac74ef8d3d3b0f22ef0ad3bbbdb30b2a9e10570b1fa5a98be34c7be36c9a6b'],
+    }),
+    ('extension-helpers', '1.1.0', {
+        'checksums': ['49460c78a3f8d1f8cec174479f5e85ad445948ccc416033c5aa3e6ddf2c50229'],
+    }),
+    (name, version, {
+        'checksums': ['0330df9f5d7a2254367e9b8cf44255ba1070b06123188c6a72edc180493f93bb'],
+    }),
+]
+
+moduleclass = 'astro'
