@@ -1,0 +1,11 @@
+--- python/install.py.orig	2023-11-20 17:03:00
++++ python/install.py	2023-11-20 17:14:45
+@@ -139,7 +139,7 @@
+   py_exe = sys.executable
+ 
+ try:
+-  txt = subprocess.check_output([py_exe, '-m', 'pip', 'install', '--force-reinstall', wheel], stderr=subprocess.STDOUT, shell=False)
++  txt = subprocess.check_output([py_exe, '-m', 'pip', 'install', f'--prefix={os.environ["INSTALL_PREFIX"]}', '--force-reinstall', wheel], stderr=subprocess.STDOUT, shell=False)
+   print(txt.decode('UTF-8'))
+   sys.exit(0)
+ except subprocess.CalledProcessError as err:
