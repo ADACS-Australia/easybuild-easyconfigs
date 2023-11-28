@@ -31,6 +31,7 @@ skipsteps = ['configure']
 
 runtest = 'check'
 
+buildopts = "PREFIX=%(installdir)s"
 installopts = "PREFIX=%(installdir)s"
 
 sanity_check_paths = {
