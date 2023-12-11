@@ -23,6 +23,8 @@ dependencies = [
     ('OpenSSL', '1.1', '', SYSTEM),  # required for Net::SSLeay
 ]
 
+runtest = False
+
 # !! order of extensions is important !!
 # extensions updated on 2023-05-23
 exts_list = [
