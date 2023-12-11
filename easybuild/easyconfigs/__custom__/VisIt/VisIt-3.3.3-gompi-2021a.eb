@@ -1,0 +1,37 @@
+easyblock = 'Binary'
+name = 'VisIt'
+version = '3.3.3'
+
+homepage = 'https://wci.llnl.gov/simulation/computer-codes/visit'
+description = """ VisIt is an Open Source, interactive, scalable,
+    visualization, animation and analysis tool."""
+
+toolchain = {'name': 'gompi', 'version': '2021a'}
+
+source_urls = ['https://github.com/visit-dav/visit/releases/download/v3.3.3']
+sources = ['build_visit3_3_3','visit3.3.3.tar.gz']
+
+checksums = [
+    {'build_visit3_3_3': 'ac5aff43fc8be2403a471261c1e1e967a9e2e7e4b882797e6f1660858911ea2c'},
+    {'visit3.3.3.tar.gz': 'cc67abb7585e23b51ad576e797df4108641ae6c8c5e80e5359a279c729769187'},
+]
+
+builddependencies = [
+    ('pkg-config', '0.29.2'),
+    ('CMake', '3.20.1'),
+]
+
+dependencies = [
+    ('X11', '20210518'),
+]
+
+preinstallopts = 'export PAR_COMPILER=mpicc PAR_COMPILER_CXX=mpicxx &&'
+install_cmd = 'yes yes | ./build_visit3_3_3 --tarball visit3.3.3.tar.gz --prefix %(installdir)s --thirdparty-path %(installdir)s/third_party'
+installopts = '--parallel --makeflags -j --no-sphinx --system-cmake --mesagl --llvm --netcdf --hdf5 --silo --cfitsio --szip --xdmf'
+
+sanity_check_paths = {
+    'files': ['bin/visit'],
+    'dirs': ['bin', version],
+}
+
+moduleclass = 'vis'
