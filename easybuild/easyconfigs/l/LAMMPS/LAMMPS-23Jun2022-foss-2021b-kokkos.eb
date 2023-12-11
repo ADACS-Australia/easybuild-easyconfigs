@@ -14,6 +14,9 @@ simulation domain. The code is designed to be easy to modify or extend with new
 functionality.
 """
 
+# Only need this for 'data-mover' nodes
+# kokkos_arch = 'SNB'
+
 toolchain = {'name': 'foss', 'version': '2021b'}
 toolchainopts = {'openmp': True, 'usempi': True}
 

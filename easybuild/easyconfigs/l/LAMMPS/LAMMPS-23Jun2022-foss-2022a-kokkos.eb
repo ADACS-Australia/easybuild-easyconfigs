@@ -17,6 +17,9 @@ functionality.
 toolchain = {'name': 'foss', 'version': '2022a'}
 toolchainopts = {'openmp': True, 'usempi': True}
 
+# Only need this for 'data-mover' nodes
+# kokkos_arch = 'SNB'
+
 # 'https://github.com/lammps/lammps/archive/'
 source_urls = [GITHUB_LOWER_SOURCE]
 sources = ['stable_%(version)s_update4.tar.gz']
