@@ -1,10 +1,9 @@
 easyblock = 'Toolchain'
-hidden = True
 
 name = 'python-scientific'
 version = '%(pyver)s'
 local_tc_year = '2023a'
-versionsuffix = '-foss-%(local_tc_year)s'
+versionsuffix = '-foss-2023a'
 
 homepage = 'https://python.org/'
 description = """A collection of modules and Python packages for scientific computing.
