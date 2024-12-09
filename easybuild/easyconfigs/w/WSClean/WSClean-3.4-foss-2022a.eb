@@ -27,8 +27,9 @@ dependencies = [
     ('Boost', '1.79.0'),
     ('CFITSIO', '4.2.0'),
     ('GSL', '2.7'),
-    ('HDF5', '1.12.2'),
+    ('HDF5', '1.13.1'),
     ('Python', '3.10.4'),
+    ('IDG', '1.2.0', '-CUDA-12.0.0'),
 ]
 
 # Without this, the wrong (system) python is picked up by cmake
@@ -41,6 +42,10 @@ sanity_check_paths = {
     'dirs': ['bin'],
 }
 
-sanity_check_commands = [('wsclean', '--version')]
+# Ensure that you've installed the correct version
+sanity_check_commands = [
+    "wsclean --version",
+    "wsclean --version | grep -Fq -- 'WSClean version %(version)s'",
+]
 
 moduleclass = 'astro'

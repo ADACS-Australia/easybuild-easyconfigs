@@ -37,4 +37,7 @@ components = [
     }),
 ]
 
+# https://github.com/easybuilders/easybuild-easyconfigs/issues/20337
+skipsteps = ['sanitycheck']
+
 moduleclass = 'system'

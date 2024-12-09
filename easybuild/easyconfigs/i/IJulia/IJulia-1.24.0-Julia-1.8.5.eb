@@ -11,7 +11,7 @@ description = "Julia kernel for Jupyter"
 toolchain = SYSTEM
 
 dependencies = [
-    ('Julia', _julia_ver, '-linux-%s' % ARCH, SYSTEM),
+    ('Julia', _julia_ver),
 ]
 
 exts_list = [
