@@ -1,0 +1,67 @@
+# Contribution from Imperial College London (UK)
+# Uploaded by J. Sassmannshausen
+
+easyblock = 'CmdCp'
+
+name = 'PGPLOT'
+version = '5.2.2'
+
+homepage = 'https://sites.astro.caltech.edu/~tjp/pgplot/'
+description = """The PGPLOT Graphics Subroutine Library is a Fortran- or C-callable,
+device-independent graphics package for making simple scientific graphs. It is intended
+for making graphical images of publication quality with minimum effort on the part of
+the user. For most applications, the program can be device-independent, and the output
+can be directed to the appropriate device at run time."""
+
+toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
+
+source_urls = ['ftp://ftp.astro.caltech.edu/pub/pgplot/']
+sources = ['%%(namelower)s%s.tar.gz' % version.replace('.', '')]
+patches = [
+  'ozstar.patch',
+]
+checksums = [
+    {'pgplot522.tar.gz': 'a5799ff719a510d84d26df4ae7409ae61fe66477e3f1e8820422a9a4727a5be4'},
+    {'ozstar.patch': '2df092d3a87679456c478340a62cc9f9e46fdf5c604da3480daba77fa0aec586'},
+]
+
+builddependencies = [
+    ('binutils', '2.40'),
+]
+
+dependencies = [
+    ('libpng', '1.6.39'),
+    ('zlib', '1.2.13'),
+    ('X11', '20230603'),
+]
+
+cmds_map = [('.*', './makemake . linux g77_gcc && make && make shared && make cpg && make cpg-shared')]
+
+files_to_copy = [
+    (['pgdemo*', 'cpgdemo', 'pgbind', 'pgxwin_server'], 'bin'),
+    (['libpgplot.*', 'libcpgplot.*'], 'lib'),
+    (['grfont.dat', 'pgplot.doc', 'rgb.txt'], 'share'),
+    (['cpgplot.h'], 'include'),
+]
+
+# create .so symlinks for shared libraries
+postinstallcmds = [
+    "cd %%(installdir)s/lib && ln -s libcpgplot.%s.5.2.2 libcpgplot.%s.5" % (SHLIB_EXT, SHLIB_EXT),
+    "cd %%(installdir)s/lib && ln -s libcpgplot.%s.5.2.2 libcpgplot.%s" % (SHLIB_EXT, SHLIB_EXT),
+    "cd %%(installdir)s/lib && ln -s libpgplot.%s.5.2.2 libpgplot.%s.5" % (SHLIB_EXT, SHLIB_EXT),
+    "cd %%(installdir)s/lib && ln -s libpgplot.%s.5.2.2 libpgplot.%s" % (SHLIB_EXT, SHLIB_EXT),
+]
+
+sanity_check_paths = {
+    'files': ['include/cpgplot.h', 'lib/libpgplot.a', 'lib/libcpgplot.a',
+              'lib/libpgplot.%s' % SHLIB_EXT, 'lib/libcpgplot.%s' % SHLIB_EXT],
+    'dirs': ['bin'],
+}
+
+modextravars = {
+    'PGPLOT_DIR': '%(installdir)s',
+    'PGPLOT_FONT': '%(installdir)s/share/grfont.dat',
+    'PGPLOT_RGB': '%(installdir)s/share/rgb.txt',
+}
+
+moduleclass = 'vis'

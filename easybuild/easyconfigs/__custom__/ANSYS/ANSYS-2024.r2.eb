@@ -1,0 +1,44 @@
+name = 'ANSYS'
+version = '2024.r2'
+_verA = 'v242'
+_verB = '24.2.0'
+
+homepage = 'http://www.ansys.com'
+description = """ANSYS simulation software enables organizations to confidently predict 
+    how their products will operate in the real world. We believe that every product is 
+    a promise of something greater. """
+
+toolchain = {'name': 'system', 'version': 'system'}
+
+# create a zip file from the 3 install iso files.
+# make sure all files of the iso's are in the same directory.
+sources = ['ANSYS-%(version)s.zip']
+patches = [
+  # copy file to target_path folder, since we want to apply the patch AFTER installation
+  ('mpirun_patch', ''),
+]
+checksums = [
+    {'ANSYS-2024.r2.zip': '1715b85249a839772f7cbf3f52d901d2cf9bfc1608f2fc2b91bee11eacfa0a62'},
+    {'mpirun_patch': '62f9731261896a715beccdfdc020798b4a9fb6c2739299d40359b495456c016e'},
+]
+
+_mpirundir = f'%(installdir)s/{_verA}/fluent/fluent{_verB}/multiport/mpi_wrapper/bin'
+_patchfile = '%(builddir)s/mpirun_patch'
+
+postinstallcmds = [
+    f'cd {_mpirundir} && patch -b < {_patchfile}',
+]
+
+osdependencies = ['libnsl']
+
+license_server = 'ls-ansys.ds.swin.edu.au'
+license_server_port = '2325:1055'
+
+modextravars = {
+    'USE_SUT_MPI': 'yes',
+    '_gcc_ver': '12.2.0',
+    '_openmpi_ver': '4.1.5',
+    'I_MPI_FABRICS': 'shm:ofa',
+}
+
+moduleclass = 'tools'

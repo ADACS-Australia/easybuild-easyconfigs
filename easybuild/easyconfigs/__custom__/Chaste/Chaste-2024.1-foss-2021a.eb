@@ -1,0 +1,36 @@
+easyblock = 'CMakeMake'
+
+name = 'Chaste'
+version = '2024.1'
+
+homepage = "http://www.cs.ox.ac.uk/chaste/"
+description = """Chaste (Cancer, Heart and Soft Tissue Environment) is a general purpose simulation package aimed at multi-scale, computationally demanding problems arising in biology and physiology. Current functionality includes tissue and cell level electrophysiology, discrete tissue modelling, and soft tissue modelling."""
+
+toolchain = {'name': 'foss', 'version': '2021a'} 
+
+sources = ['%(version)s.tar.gz']
+source_urls = ['https://github.com/Chaste/Chaste/archive/refs/tags/']
+
+builddependencies = [
+    ('CMake', '3.20.1'),
+]    
+
+dependencies = [
+    ('Python', '3.9.5'),
+    ('Boost', '1.76.0'),
+    ('HDF5', '1.10.7'),
+    ('ParMETIS', '4.0.3'),
+    ('PETSc', '3.15.1'),
+    ('SUNDIALS', '5.8.0'),
+    ('VTK', '9.0.1'),
+    ('Xerces-C++', '3.2.3'),
+    ('xsd/4.0.0', EXTERNAL_MODULE),
+]
+
+sanity_check_paths = {
+    'files': ['lib/chaste/libchaste_%s.so' % x for x in ("cell_based", "continuum_mechanics", "crypt", "global", "heart", "io", "linalg", "lung", "mesh", "ode", "pde") ],
+    'dirs': ['include/chaste', 'lib/chaste/cmake', 'lib/chaste/cxxtest', 'lib/chaste/python'],
+}
+
+moduleclass = 'bio'
+
