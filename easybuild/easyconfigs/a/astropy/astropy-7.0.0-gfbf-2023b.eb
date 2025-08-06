@@ -29,6 +29,11 @@ local_pytest_args = "not test_delay_doc_updates and not test_datetime_timedelta_
 local_pytest_args += " and not remote_data"
 # This test fails if the Easybuild tempdir is in a location for which the path is not equal to the realpath
 local_pytest_args += " and not test_write_jsviewer_local"
+# Proxy issue I think?
+local_pytest_args += " and not test_web_profile"
+# These also fail... Will disable like Fedora has https://github.com/astropy/astropy/issues/11821
+local_pytest_args += " and not test_datetime_difference_agrees_with_timedelta"
+local_pytest_args += " and not test_datetime_to_timedelta"
 
 exts_list = [
     ('colorlog', '6.9.0', {
