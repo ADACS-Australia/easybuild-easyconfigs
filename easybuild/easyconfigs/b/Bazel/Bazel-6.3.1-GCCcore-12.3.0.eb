@@ -9,10 +9,12 @@ toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
 
 source_urls = ['https://github.com/bazelbuild/%(namelower)s/releases/download/%(version)s']
 sources = ['%(namelower)s-%(version)s-dist.zip']
-patches = ['Bazel-6.3.1_add-symlinks-in-runfiles.patch']
+patches = ['Bazel-6.3.1_add-symlinks-in-runfiles.patch', 'Bazel-5.1.1_dont_unset_JAVA_TOOL_OPTIONS.patch']
 checksums = [
     {'bazel-6.3.1-dist.zip': '2676319e86c5aeab142dccd42434364a33aa330a091c13562b7de87a10e68775'},
     {'Bazel-6.3.1_add-symlinks-in-runfiles.patch': '81db53aa87229557480b6f719c99a0f1af9c69dfec12185451e520b0128c3ae2'},
+    {'Bazel-5.1.1_dont_unset_JAVA_TOOL_OPTIONS.patch':
+     '036c1d9c06f2f221b6324532773103a830bf91a2ef8c33bc2473aca3623ba6b8'},
 ]
 
 builddependencies = [
