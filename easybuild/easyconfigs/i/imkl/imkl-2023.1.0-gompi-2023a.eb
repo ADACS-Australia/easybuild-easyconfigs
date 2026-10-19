@@ -16,4 +16,13 @@ checksums = ['cc28c94cab23c185520b93c5a04f3979d8da6b4c90cee8c0681dd89819d76167']
 
 installopts = "--download-cache=%(builddir)s/cache --download-dir=%(builddir)s/download --log-dir=%(builddir)s/log"
 
+postinstallcmds = [
+  'gcc -shared -fPIC -o libmkl_serv_intel_cpu.so -xc - <<< "int mkl_serv_intel_cpu_true() {return 1;}"',
+  'install libmkl_serv_intel_cpu.so %(installdir)s/libmkl_serv_intel_cpu.so',
+]
+
+modextravars = {
+  'LD_PRELOAD': '%(installdir)s/libmkl_serv_intel_cpu.so',
+}
+
 moduleclass = 'numlib'
