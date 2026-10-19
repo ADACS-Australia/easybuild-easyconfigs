@@ -29,6 +29,18 @@ if ARCH == 'riscv64':
          '7acc5056a1566e87e48bfc80671d2d5d54802434e89135cf164afeda229dfb5c'},
     )
 
+
+import os
+if os.environ.get('SYS_ARCH') == 'skylake':
+    patches.append(
+        'OpenMPI-5.0.10_OmniPath_orte_precondition_transports_skylake.patch',
+    )
+    checksums.append(
+        {'OpenMPI-5.0.10_OmniPath_orte_precondition_transports_skylake.patch':
+         'e257321ec287e6715a8ac7b6dd3149b4f185541880721353464918a9d9231bcc'},
+    )
+
+
 builddependencies = [
     ('pkgconf', '2.5.1'),
     ('Perl', '5.42.0'),

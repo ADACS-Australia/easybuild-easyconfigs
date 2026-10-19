@@ -1,0 +1,41 @@
+--- ompi/tools/mpirun/main.c.ORIGINAL	2026-02-24 07:21:10.975280186 +1100
++++ ompi/tools/mpirun/main.c	2026-06-23 16:08:27.219923943 +1000
+@@ -15,6 +15,7 @@
+ #    include <sys/stat.h>
+ #endif /* HAVE_SYS_STAT_H */
+ #include <string.h>
++#include <time.h>
+
+ #include "opal/mca/base/base.h"
+ #include "opal/mca/installdirs/base/base.h"
+@@ -124,6 +125,30 @@
+     int ret;
+     size_t i;
+
++    /*
++    * Setup transport keys in case the MPI layer needs them.
++    *
++    * We use the time and pid to form the unique keys.
++    *
++    * According to Intel the format is 16 digit hexadecimal characters
++    * separated by a dash. For example: 13241234acffedeb-abcdefabcdef1233
++    *
++    * This key is used by the PSM2 library to uniquely identify each
++    * different job end point used on the fabric. If two MPI jobs are
++    * running on the same node sharing the same HFI and using PSM2, each
++    * one should have a different key.
++    *
++    * We only do this on our "skylake" cluster, which has an OmniPath fabric.
++    */
++    char *arch;
++    if (!getenv("OMPI_MCA_orte_precondition_transports") &&
++        (arch = getenv("SYS_ARCH")) && !strcmp(arch, "skylake")) {
++        char key[34];
++        srand(time(NULL) ^ getpid());
++        sprintf(key, "%08x%08x-%08x%08x", rand(), rand(), rand(), rand());
++        setenv("OMPI_MCA_orte_precondition_transports", key, 1);
++    }
++
+     ret = opal_init_util(&argc, &argv);
+     if (OMPI_SUCCESS != ret) {
+         fprintf(stderr, "Failed initializing opal: %d\n", ret);
